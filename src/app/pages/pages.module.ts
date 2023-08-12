@@ -8,6 +8,8 @@ import { ProgressComponent } from './progress/progress.component';
 import { PagesComponent } from './pages.component';
 import { SharedModule } from '../shared/shared.module';
 
+import { ComponentsModule } from '../components/components.module';
+
 
 
 @NgModule({
@@ -21,6 +23,7 @@ import { SharedModule } from '../shared/shared.module';
     CommonModule,
     RouterModule,
 
+    ComponentsModule,
     SharedModule,
   ],
   exports: [
