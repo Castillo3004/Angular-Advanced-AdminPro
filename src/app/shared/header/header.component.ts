@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+
+declare function customSidebar(): void;
 
 @Component({
   selector: 'app-header',
@@ -6,6 +8,10 @@ import { Component } from '@angular/core';
   styles: [
   ]
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit{
+
+  ngOnInit(): void {
+    customSidebar();
+  }
 
 }
