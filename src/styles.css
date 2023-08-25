@@ -9,3 +9,19 @@
 #themecolors .selector, .cursor{
   cursor: pointer;
 }
+
+
+.img-avatar {
+  object-fit: cover;
+  margin: 1rem auto;
+  border-radius: 5%;
+  height: 15rem;
+  width: 15rem;
+}
+
+
+.img-profile{
+  object-fit: cover;
+  width: 2rem;
+  height: 2rem;
+}

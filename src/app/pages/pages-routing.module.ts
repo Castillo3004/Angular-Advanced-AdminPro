@@ -10,6 +10,7 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
 import { RxjsComponent } from './rxjs/rxjs.component';
 
 import { authGuard } from '../guards/auth-guard.guard';
+import { PerfilComponent } from './perfil/perfil.component';
 
 
 
@@ -21,11 +22,12 @@ const routes: Routes =[
     canActivate: [ authGuard ],
     children: [
       { path: '', component: DashboardComponent, data: { title: 'Dashboard'} },
-      { path: 'progress', component: ProgressComponent, data: { title: 'ProgressBar'} },
+      { path: 'account-settings', component: AccountSettingsComponent, data: { title: 'Ajustes de Cuenta'}  },
       { path: 'grafica1', component: Grafica1Component, data: { title: 'Graficas'} },
+      { path: 'progress', component: ProgressComponent, data: { title: 'ProgressBar'} },
       { path: 'promesas', component: PromesasComponent, data: { title: 'Promesas'} },
       { path: 'rxjs', component: RxjsComponent, data: { title: 'RxJS'} },
-      { path: 'account-settings', component: AccountSettingsComponent, data: { title: 'Ajustes de Cuenta'}  },
+      { path: 'perfil', component: PerfilComponent, data: { title: 'Perfil de Usuario'} },
     ]
   },
 
