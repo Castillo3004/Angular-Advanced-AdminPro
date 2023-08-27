@@ -1,6 +1,6 @@
 import { Observable, catchError, map, of, tap } from 'rxjs';
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent } from '@angular/common/http';
 import { Injectable, NgZone, inject } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -9,6 +9,8 @@ import { environment } from 'src/environments/environment';
 
 import { RegisterForm } from '../interfaces/register-form.interface';
 import { LoginForm } from '../interfaces/login-form.interface';
+import { CargarUsuario } from '../interfaces/cargar-usuarios.interface';
+
 import { Usuario } from '../models/usuario.model';
 
 
@@ -37,26 +39,41 @@ export class UsuarioService {
     return this.usuario?.uid || '';
   }
 
+  get rolCurrentUser(): string{
+    return this.usuario?.rol || '';
+  }
 
-
-  validarToken(): Observable<boolean>{
-
-    return this.http.get(`${ this.base_url }/login/renew`,{
+  get headers():any{
+    return {
       headers: {
         'x-token': this.token
       }
-    }).pipe(
-      map( (resp: any) => {
+    }
+  }
 
-        const { email, google, img, nombre, rol, uid } = resp.usuario;
-        this.usuario = new Usuario(nombre, email, '', img, google, rol, uid );
-        localStorage.setItem('token', resp.token );
-        return true;
-      }),
-      catchError( err => of(false))
-    );
+
+  // CRUD
+
+  getUsuarios( desde: number = 0): Observable<CargarUsuario>{
+
+    const url = `${ this.base_url }/usuarios?desde=${ desde }`;
+
+    return this.http.get<CargarUsuario>( url, this.headers ).pipe(
+      map( (resp: any) => resp),
+      map( (resp: any) => {
+        const usuarios = resp.usuarios.map(
+          (user: any) => new Usuario(user.nombre, user.email, '', user.img, user.google, user.rol, user.uid )
+        );
+        return {
+          total: resp.total,
+          usuarios
+        };
+      })
+
+    )
 
   }
+
 
   crearUsuario( formData: RegisterForm ){
 
@@ -72,18 +89,42 @@ export class UsuarioService {
 
     data = { ...data, rol: this.usuario?.rol}
 
-    return this.http.put(`${ this.base_url }/usuarios/${ this.uid }`, data, {
-      headers: {
-        'x-token': this.token
-      }
-    })
+    return this.http.put(`${ this.base_url }/usuarios/${ this.uid }`, data, this.headers)
   }
 
+  deleteUserById( usuario: Usuario ){
+
+    const url = `${ this.base_url }/usuarios/${ usuario.uid }`
+    return this.http.delete(url, this.headers );
+  }
+
+  guardarUsuario( usuario: Usuario){
+
+    return this.http.put(`${ this.base_url }/usuarios/${ usuario.uid }`, usuario, this.headers)
+  }
+
+
+  // Auth
+
+  validarToken(): Observable<boolean>{
+
+    return this.http.get(`${ this.base_url }/login/renew`, this.headers).pipe(
+      map( (resp: any) => {
+
+        const { email, google, img, nombre, rol, uid } = resp.usuario;
+        this.usuario = new Usuario(nombre, email, '', img, google, rol, uid );
+        localStorage.setItem('token', resp.token );
+        return true;
+      }),
+      catchError( err => of(false))
+    );
+
+  }
 
 
   login( formData: LoginForm ){
 
-    return this.http.post(`${ this.base_url }/login`, formData, ).pipe(
+    return this.http.post(`${ this.base_url }/login`, formData ).pipe(
       tap( ( resp: any ) => {
         localStorage.setItem('token', resp.token );
       })

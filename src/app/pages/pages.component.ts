@@ -13,6 +13,8 @@ export class PagesComponent implements OnInit{
 
   private settingsService = inject(SettingsService);
 
+  public currentYear = new Date().getFullYear();
+
   ngOnInit(): void {
     customInitFunctions();
   }

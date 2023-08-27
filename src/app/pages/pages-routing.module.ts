@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { authGuard } from '../guards/auth-guard.guard';
+
 import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProgressComponent } from './progress/progress.component';
@@ -9,8 +11,11 @@ import { PromesasComponent } from './promesas/promesas.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 
-import { authGuard } from '../guards/auth-guard.guard';
 import { PerfilComponent } from './perfil/perfil.component';
+
+import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component';
+import { MedicosComponent } from './mantenimientos/medicos/medicos.component';
+import { HospitalesComponent } from './mantenimientos/hospitales/hospitales.component';
 
 
 
@@ -28,6 +33,11 @@ const routes: Routes =[
       { path: 'promesas', component: PromesasComponent, data: { title: 'Promesas'} },
       { path: 'rxjs', component: RxjsComponent, data: { title: 'RxJS'} },
       { path: 'perfil', component: PerfilComponent, data: { title: 'Perfil de Usuario'} },
+
+      // Mantenimientos
+      { path: 'usuarios', component: UsuariosComponent, data: { title: 'Usuario de aplicación'} },
+      { path: 'medicos', component: MedicosComponent, data: { title: 'Medicos'} },
+      { path: 'hospitales', component: HospitalesComponent, data: { title: 'Hospitales'} },
     ]
   },
 

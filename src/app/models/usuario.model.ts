@@ -12,20 +12,19 @@ export class Usuario{
     public img?: string,
     public google?: boolean,
     public rol?: string,
-    public uid?: string
+    public uid?: string,
   ){}
 
     get imagenUrl() {
 
-      if ( this.img?.includes('https://lh3.googleusercontent.com')){
+      if( !this.img ) {
+        return `${ baseUrl }/uploads/usuarios/no-image`;
+      }else if ( this.img?.includes('https://lh3.googleusercontent.com')){
         return this.img;
-      }
-
-
-      if( this.img ){
+      } else if( this.img ){
         return `${ baseUrl }/uploads/usuarios/${ this.img }`
       }else{
-        return `${ baseUrl }/uploads/usuarios/no-image`
+        return `${ baseUrl }/uploads/usuarios/no-image`;
       }
 
     }

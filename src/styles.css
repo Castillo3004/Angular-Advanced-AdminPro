@@ -25,3 +25,35 @@
   width: 2rem;
   height: 2rem;
 }
+
+
+.w100 {
+  width: 100px;
+}
+
+.w140{
+  width: 140px;
+}
+
+
+.avatar{
+  object-fit: cover;
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+}
+
+.oculto{
+  display: none;
+}
+
+.fondo-modal-imagen {
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(1px);
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 99;
+}

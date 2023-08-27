@@ -39,7 +39,6 @@ export class PerfilComponent implements OnInit{
   }
 
   actualizarPerfil(){
-    console.log( this.perfilForm.value );
     this.usuarioService.actualizarUsuario( this.perfilForm.value )
       .subscribe( resp => {
         const { nombre, email } = this.perfilForm.value;
@@ -71,7 +70,6 @@ export class PerfilComponent implements OnInit{
   subirImagen(){
 
     if(!this.imagenSubir?.type.includes('image/')){
-      //console.log('archivo incorrect');
       this.imgTemp = undefined;
       this.imagenSubir = undefined;
       return Swal.fire({ title: 'Error', text: 'Debe ser una imagen (png, jpg, jpeg)', icon: 'error' });
