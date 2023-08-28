@@ -155,12 +155,12 @@
               <!-- Profile -->
               <!-- ============================================================== -->
               <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img [src]="usuario?.imagenUrl" alt="user" class="profile-pic img-profile" /></a>
+                  <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img [src]="usuario!.img | getImagen: 'usuarios'" alt="user" class="profile-pic img-profile" /></a>
                   <div class="dropdown-menu dropdown-menu-right animated fadeIn fast">
                       <ul class="dropdown-user">
                           <li>
                               <div class="dw-user-box">
-                                  <div class="u-img"><img [src]="usuario?.imagenUrl" alt="user"></div>
+                                  <div class="u-img"><img [src]="usuario!.img | getImagen: 'usuarios'" alt="user"></div>
                                   <div class="u-text">
                                       <h4>{{ usuario?.nombre }}</h4>
                                       <p class="text-muted">{{ usuario?.email | slice:0:20 }} {{ (usuario!.email.length > 20) ? '...' : ''}}</p><a href="pages-profile.html" class="btn btn-rounded btn-danger btn-sm">View Profile</a></div>

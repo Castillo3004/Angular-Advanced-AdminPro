@@ -88,12 +88,16 @@ export class UsuariosComponent implements OnInit, OnDestroy{
 
     return this.busquedasService.buscar( 'usuarios', termino)
     .subscribe( resp =>{
-      this.usuarios = resp;
+      this.usuarios = resp as Usuario[];
       this.totalBusquedaUsuarios = this.usuarios.length;
       })
   }
 
   eliminarUsuario( usuario: Usuario ){
+
+    if( this.rolUser === 'USER_ROLE' ){
+      return Swal.fire('Error', 'No tiene los permisos necesarios para eliminar un usuario, debe ser administrador', 'error');
+    }
 
     if( usuario.uid === this.usuarioService.uid ){
       return Swal.fire('Error', 'No puede borrarse a si mismo', 'error');

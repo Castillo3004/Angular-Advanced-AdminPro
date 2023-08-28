@@ -19,6 +19,13 @@
   width: 15rem;
 }
 
+.img-avatar2 {
+  object-fit: cover;
+  border-radius: 5%;
+  height: 10rem;
+  width: 10rem;
+}
+
 
 .img-profile{
   object-fit: cover;

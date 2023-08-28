@@ -15,18 +15,5 @@ export class Usuario{
     public uid?: string,
   ){}
 
-    get imagenUrl() {
-
-      if( !this.img ) {
-        return `${ baseUrl }/uploads/usuarios/no-image`;
-      }else if ( this.img?.includes('https://lh3.googleusercontent.com')){
-        return this.img;
-      } else if( this.img ){
-        return `${ baseUrl }/uploads/usuarios/${ this.img }`
-      }else{
-        return `${ baseUrl }/uploads/usuarios/no-image`;
-      }
-
-    }
 
 }

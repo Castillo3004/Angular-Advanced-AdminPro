@@ -36,7 +36,8 @@
     <div class="card">
         <div class="card-body">
             <h4 class="card-title" *ngIf="txtBuscar.value.length === 0">Total de Usuarios {{ totalUsuarios }}</h4>
-            <h4 class="card-title" *ngIf="txtBuscar.value.length !== 0">Total de Usuarios {{ totalBusquedaUsuarios }}</h4>
+
+
             <h6 class="card-subtitle">Usuarios registrados en la aplicación</h6>
             <div class="table-responsive">
                 <table class="table table-striped">
@@ -53,7 +54,7 @@
                     <tbody>
                         <tr *ngFor="let usuario of usuarios">
                             <td class="text-center">
-                              <img [src]="usuario.imagenUrl" [alt]="usuario.nombre" class="avatar cursor" (click)="abrirModal(usuario)">
+                              <img [src]="usuario.img | getImagen: 'usuarios'" [alt]="usuario.nombre" class="avatar cursor" (click)="abrirModal(usuario)">
                             </td>
                             <td>{{ usuario.email }}</td>
                             <td>{{ usuario.nombre }}</td>
