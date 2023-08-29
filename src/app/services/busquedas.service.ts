@@ -52,6 +52,7 @@ export class BusquedasService {
   buscar( tipo: 'usuarios' | 'medicos' | 'hospitales', termino: string ){
 
     const url = `${ this.base_url }/todo/coleccion/${ tipo }/${ termino }`;
+
     return this.http.get<any[]>( url, this.headers ).pipe(
       map( ( resp:any ) => {
 
@@ -76,6 +77,11 @@ export class BusquedasService {
       })
     );
 
+  }
+
+  buscarGlobal( termino: string ){
+    const url = `${ this.base_url }/todo/${ termino }`;
+    return this.http.get( url, this.headers );
   }
 
 

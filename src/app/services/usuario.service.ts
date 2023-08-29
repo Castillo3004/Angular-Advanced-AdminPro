@@ -31,6 +31,7 @@ export class UsuarioService {
   public usuario: Usuario | undefined;
 
 
+
   get token(): string{
     return localStorage.getItem('token') || '';
   }
@@ -39,9 +40,10 @@ export class UsuarioService {
     return this.usuario?.uid || '';
   }
 
-  get rolCurrentUser(): string{
-    return this.usuario?.rol || '';
+  get rolCurrentUser(): 'ADMIN_ROLE' | 'USER_ROLE' {
+    return this.usuario!.rol || 'USER_ROLE';
   }
+
 
   get headers():any{
     return {
@@ -50,6 +52,15 @@ export class UsuarioService {
       }
     }
   }
+
+
+
+  guardarLocalStorage( token: string, menu: any, authStatus: 'noAuthenticated' | 'Authenticated') {
+    localStorage.setItem('token', token );
+    localStorage.setItem('menu', JSON.stringify(menu) );
+    localStorage.setItem('authStatus', authStatus )
+  }
+
 
 
   // CRUD
@@ -79,7 +90,7 @@ export class UsuarioService {
 
     return this.http.post(`${ this.base_url }/usuarios`, formData ).pipe(
       tap( ( resp: any ) => {
-        localStorage.setItem('token', resp.token );
+        this.guardarLocalStorage(resp.token, resp.menu, 'Authenticated');
       })
     );
   }
@@ -111,9 +122,11 @@ export class UsuarioService {
     return this.http.get(`${ this.base_url }/login/renew`, this.headers).pipe(
       map( (resp: any) => {
 
-        const { email, google, img, nombre, rol, uid } = resp.usuario;
+        const { email, google, img = '', nombre, rol, uid } = resp.usuario;
         this.usuario = new Usuario(nombre, email, '', img, google, rol, uid );
-        localStorage.setItem('token', resp.token );
+
+        this.guardarLocalStorage(resp.token, resp.menu, 'Authenticated' );
+
         return true;
       }),
       catchError( err => of(false))
@@ -126,16 +139,19 @@ export class UsuarioService {
 
     return this.http.post(`${ this.base_url }/login`, formData ).pipe(
       tap( ( resp: any ) => {
-        localStorage.setItem('token', resp.token );
+        this.guardarLocalStorage(resp.token, resp.menu, 'Authenticated');
+
       })
     );
   }
 
 
   loginGoogle( token: string){
+
     return this.http.post(`${ this.base_url }/login/google`, { token }).pipe(
       tap( ( resp: any ) => {
-        localStorage.setItem('token', resp.token );
+        this.guardarLocalStorage(resp.token, resp.menu, 'Authenticated');
+
       })
     )
   }
@@ -143,11 +159,19 @@ export class UsuarioService {
 
   logout(){
 
-    localStorage.removeItem('token');
+    localStorage.removeItem('menu');
+    localStorage.removeItem('authStatus');
+
+
+    google.accounts.id.initialize({
+      client_id: "555304562915-38cedshscn1ddd9gv196a7hgh7igncuc.apps.googleusercontent.com",
+    });
+
     google.accounts.id.revoke('castillolj3004@gmail.com', () => {
 
       this.ngZone.run( () =>{
         this.router.navigateByUrl('/login');
+        localStorage.removeItem('token');
       });
     });
   }

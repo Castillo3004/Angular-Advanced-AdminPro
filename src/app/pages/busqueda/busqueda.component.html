@@ -1,0 +1,114 @@
+<div class="row animated fadeIn slow">
+
+  <div class="col-4">
+    <div class="card">
+      <div class="card-body">
+
+        <h3>Usuarios</h3>
+
+        <div class="alert alert-info animated fadeIn slow" *ngIf="usuarios.length === 0">
+          <p class="mb-0">
+            No hay usuarios con este termino
+          </p>
+        </div>
+
+        <div class="table-responsive" *ngIf="usuarios.length !== 0">
+          <table class="table full-color-table full-inverse-table hover-table">
+              <thead>
+                  <tr>
+                      <th>#</th>
+                      <th>Avatar</th>
+                      <th>Nombre</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr class="animated fadeIn slow" *ngFor="let usuario of usuarios; let i = index;">
+                      <td>{{ i + 1 }}</td>
+                      <td>
+                        <img [src]=" usuario.img | getImagen: 'usuarios' " [alt]="usuario.nombre" class="avatar">
+                      </td>
+                      <td>{{ usuario.nombre}}</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="col-4">
+    <div class="card">
+      <div class="card-body">
+
+        <h3>Hospitales</h3>
+
+        <div class="alert alert-info animated fadeIn slow" *ngIf="hospitales.length === 0">
+          <p class="mb-0">
+            No hay hospitales con este termino
+          </p>
+        </div>
+
+        <div class="table-responsive" *ngIf="hospitales.length !== 0">
+          <table class="table full-color-table full-inverse-table hover-table">
+              <thead>
+                  <tr>
+                      <th>#</th>
+                      <th>Avatar</th>
+                      <th>Nombre</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr class="animated fadeIn slow" *ngFor="let hospital of hospitales; let i = index">
+                      <td>{{ i + 1}}</td>
+                      <td>
+                        <img [src]=" hospital.img | getImagen: 'hospitales' " [alt]="hospital.nombre" class="avatar">
+                      </td>
+                      <td>{{ hospital.nombre }}</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="col-4">
+    <div class="card">
+      <div class="card-body">
+
+        <h3>Médicos</h3>
+
+        <div class="alert alert-info animated fadeIn slow" *ngIf="medicos.length === 0">
+          <p class="mb-0">
+            No hay medicos con este termino
+          </p>
+        </div>
+
+        <div class="table-responsive" *ngIf="medicos.length !== 0">
+          <table class="table full-color-table full-inverse-table hover-table">
+              <thead>
+                  <tr>
+                      <th>#</th>
+                      <th>Avatar</th>
+                      <th>Nombre</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr class="cursor animated fadeIn slow" *ngFor="let medico of medicos; let i = index" (click)="abrirMedico( medico )">
+                      <td>{{ i + 1 }}</td>
+                      <td>
+                        <img [src]=" medico.img | getImagen: 'medicos' " [alt]="medico.nombre" class="avatar">
+                      </td>
+                      <td>{{ medico.nombre }}</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>

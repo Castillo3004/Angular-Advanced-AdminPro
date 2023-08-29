@@ -6,6 +6,7 @@ import { BreadCrumbsComponent } from './bread-crumbs/bread-crumbs.component';
 import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { PipesModule } from '../pipes/pipes.module';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -20,6 +21,7 @@ import { PipesModule } from '../pipes/pipes.module';
 
     RouterModule,
     PipesModule,
+    FormsModule,
   ],
   exports: [
     BreadCrumbsComponent,

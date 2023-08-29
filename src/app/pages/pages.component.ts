@@ -1,5 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { SettingsService } from '../services/settings.service';
+import { SidebarService } from '../services/sidebar.service';
 
 declare function customInitFunctions(): void;   // Se llama el codigo desde Angular, el cual esta en js de la plantilla que esta en assets
 
@@ -12,11 +13,13 @@ declare function customInitFunctions(): void;   // Se llama el codigo desde Angu
 export class PagesComponent implements OnInit{
 
   private settingsService = inject(SettingsService);
+  private sidebarService = inject(SidebarService);
 
   public currentYear = new Date().getFullYear();
 
   ngOnInit(): void {
     customInitFunctions();
+    this.sidebarService.cargarMenu();
   }
 
 }
