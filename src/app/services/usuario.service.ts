@@ -55,10 +55,9 @@ export class UsuarioService {
 
 
 
-  guardarLocalStorage( token: string, menu: any, authStatus: 'noAuthenticated' | 'Authenticated') {
+  guardarLocalStorage( token: string, menu: any) {
     localStorage.setItem('token', token );
     localStorage.setItem('menu', JSON.stringify(menu) );
-    localStorage.setItem('authStatus', authStatus )
   }
 
 
@@ -90,7 +89,7 @@ export class UsuarioService {
 
     return this.http.post(`${ this.base_url }/usuarios`, formData ).pipe(
       tap( ( resp: any ) => {
-        this.guardarLocalStorage(resp.token, resp.menu, 'Authenticated');
+        this.guardarLocalStorage(resp.token, resp.menu );
       })
     );
   }
@@ -125,7 +124,7 @@ export class UsuarioService {
         const { email, google, img = '', nombre, rol, uid } = resp.usuario;
         this.usuario = new Usuario(nombre, email, '', img, google, rol, uid );
 
-        this.guardarLocalStorage(resp.token, resp.menu, 'Authenticated' );
+        this.guardarLocalStorage(resp.token, resp.menu );
 
         return true;
       }),
@@ -139,7 +138,7 @@ export class UsuarioService {
 
     return this.http.post(`${ this.base_url }/login`, formData ).pipe(
       tap( ( resp: any ) => {
-        this.guardarLocalStorage(resp.token, resp.menu, 'Authenticated');
+        this.guardarLocalStorage(resp.token, resp.menu );
 
       })
     );
@@ -150,7 +149,7 @@ export class UsuarioService {
 
     return this.http.post(`${ this.base_url }/login/google`, { token }).pipe(
       tap( ( resp: any ) => {
-        this.guardarLocalStorage(resp.token, resp.menu, 'Authenticated');
+        this.guardarLocalStorage(resp.token, resp.menu );
 
       })
     )
